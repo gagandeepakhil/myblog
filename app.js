@@ -2,15 +2,25 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const blogRoutes = require('./routes/blogRoutes');
+const session = require('express-session');
 
 // express app
 const app = express();
+
+app.use(session({
+  // secret will be used to encrypt and decrypt cookies
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: true
+}));
 
 // connect to mongodb & listen for requests
 const dbURI = "mongodb+srv://gagan:gagan@blog.xdg5ro5.mongodb.net/?retryWrites=true&w=majority";
 
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(result => app.listen(3000))
+  .then(result =>{ 
+    const port = process.env.PORT || 3000;
+    app.listen(port)})
   .catch(err => console.log(err));
 
 // register view engine
