@@ -27,59 +27,59 @@ app.use((req, res, next) => {
 });
 
 // routes
-app.get('/', (req, res) => {
-  res.redirect('/blogs');
+app.get(__dir+'/', (req, res) => {
+  res.redirect(__dir+'views/blogs');
 });
 
-app.get('/about', (req, res) => {
-  res.render('about', { title: 'About' });
+app.get(__dir+'/about', (req, res) => {
+  res.render(__dir+'about', { title: 'About' });
 });
 
 // blog routes
-app.get('/blogs/create', (req, res) => {
-  res.render('create', { title: 'Create a new blog' });
+app.get(__dir+'/blogs/create', (req, res) => {
+  res.render(__dir+'create', { title: 'Create a new blog' });
 });
 
-app.get('/blogs', (req, res) => {
+app.get(__dir+'/blogs', (req, res) => {
   Blog.find().sort({ createdAt: -1 })
     .then(result => {
-      res.render('index', { blogs: result, title: 'All blogs' });
+      res.render(__dir+'index', { blogs: result, title: 'All blogs' });
     })
     .catch(err => {
       console.log(err);
     });
 });
 
-app.post('/blogs', (req, res) => {
+app.post(__dir+'/blogs', (req, res) => {
   // console.log(req.body);
   const blog = new Blog(req.body);
 
   blog.save()
     .then(result => {
-      res.redirect('/blogs');
+      res.redirect(__dir+'/blogs');
     })
     .catch(err => {
       console.log(err);
     });
 });
 
-app.get('/blogs/:id', (req, res) => {
+app.get(__dir+'/blogs/:id', (req, res) => {
   const id = req.params.id;
   Blog.findById(id)
     .then(result => {
-      res.render('details', { blog: result, title: 'Blog Details' });
+      res.render(__dir+'details', { blog: result, title: 'Blog Details' });
     })
     .catch(err => {
       console.log(err);
     });
 });
 
-app.delete('/blogs/:id', (req, res) => {
+app.delete(__dir+'/blogs/:id', (req, res) => {
   const id = req.params.id;
   
   Blog.findByIdAndDelete(id)
     .then(result => {
-      res.json({ redirect: '/blogs' });
+      res.json({ redirect:__dir+'/blogs' });
     })
     .catch(err => {
       console.log(err);
@@ -88,6 +88,6 @@ app.delete('/blogs/:id', (req, res) => {
 
 // 404 page
 app.use((req, res) => {
-  res.status(404).render('404', { title: '404' });
+  res.status(404).render(__dir+'404', { title: '404' });
 });
 module.exports = app
