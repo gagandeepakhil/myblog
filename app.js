@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const Blog = require('./models/blog');
+const { Console } = require('console');
 
 // express app
 const app = express();
@@ -10,7 +11,7 @@ const app = express();
 const dbURI = "mongodb+srv://gagan:gagan@blog.xdg5ro5.mongodb.net/?retryWrites=true&w=majority";
 
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(result => app.listen(process.env.PORT||3000))
+  .then(result => app.listen(3000,"localhost",()=>{console.log('server running')}))
   .catch(err => console.log(err));
 
 // register view engine
