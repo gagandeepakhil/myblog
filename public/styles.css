@@ -59,10 +59,10 @@
       display: block;
       margin: 40px 0;
       padding-left: 30px;
-      border-left: 6px solid rgb(20, 120, 220);
+      border-left: 6px solid rgb(20, 147, 220);
     }
     .blogs a:hover h3{
-      color: rgb(20, 120, 220);
+      color: rgb(20, 150, 220);
     }
 
     /* details styles */
