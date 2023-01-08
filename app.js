@@ -2,23 +2,17 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const blogRoutes = require('./routes/blogRoutes');
-//const session = require('express-session');
 
 // express app
 const app = express();
 
-// app.use(session({
-//   // secret will be used to encrypt and decrypt cookies
-//   secret: process.env.SECRET,
-//   resave: false,
-//   saveUninitialized: true
-// }));
+
 // connect to mongodb & listen for requests
 const dbURI = "mongodb+srv://gagan:gagan@blog.xdg5ro5.mongodb.net/?retryWrites=true&w=majority";
 
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(result =>{ 
-    const port = process.env.PORT || 5000;
+    const port = process.env.PORT || 3000;
     app.listen(port)})
   .catch(err => console.log(err));
 
@@ -34,20 +28,19 @@ app.use((req, res, next) => {
   next();
 });
 
-// routes
-app.get('/', (req, res) => {
-  res.redirect('/blogs');
-});
 
+
+
+// blog routes
+app.use('/', blogRoutes);
+
+// routes
 app.get('/about', (req, res) => {
   res.render('about', { title: 'About' });
 });
 
-// blog routes
-app.use('/blogs', blogRoutes);
 
 // 404 page
 app.use((req, res) => {
   res.status(404).render('404', { title: '404' });
 });
-module.exports=app
