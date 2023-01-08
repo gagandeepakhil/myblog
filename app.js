@@ -11,10 +11,10 @@ const app = express();
 const dbURI = "mongodb+srv://gagan:gagan@blog.xdg5ro5.mongodb.net/?retryWrites=true&w=majority";
 
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(result =>{ 
-    const port = process.env.PORT || 3000;
-    app.listen(port)})
-  .catch(err => console.log(err));
+  // .then(result =>{ 
+  //   const port = process.env.PORT || 3000;
+  //   app.listen(port)})
+  // .catch(err => console.log(err));
 
 // register view engine
 app.set('view engine', 'ejs');
